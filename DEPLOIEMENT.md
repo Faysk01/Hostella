@@ -47,11 +47,13 @@ Les clés à coller (JWT_SECRET, REVALIDATE_SECRET) sont dans **SECRETS-A-COPIER
    | `SITE_URL` | même adresse que `CORS_ORIGIN` |
    | `CLOUDINARY_…` | vos 3 clés Cloudinary (ou vide pour l'instant) |
 3. Cliquez **Apply**. Au bout de 3 à 5 minutes, ouvrez `https://hostella-backend.onrender.com/api/health` : vous devez voir `"status":"ok"`.
-4. **Créez votre compte admin en ligne.** Dans Render, ouvrez le service, onglet **Shell**, puis tapez :
-   ```bash
+4. **Créez votre compte admin en ligne** depuis votre PC. Le Shell de Render n'existe pas avec l'offre gratuite. Faites-le une fois que Render a terminé, car c'est lui qui crée les tables. Dans PowerShell :
+   ```powershell
+   cd "C:\Users\Fayssal\Desktop\HostellaSite\backend"
+   $env:DATABASE_URL="VOTRE_ADRESSE_NEON"
    npm run admin:create -- votre@email.com Fayssal NomDeFamille
    ```
-   Notez le mot de passe provisoire.
+   Notez le mot de passe provisoire, puis fermez ce terminal.
 
 ## Étape 4 — Site public sur Vercel
 
