@@ -1,0 +1,239 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------
+// Demandes venant du site public
+// ---------------------------------------------------------------
+
+enum QuoteStatus {
+  NOUVEAU
+  EN_COURS
+  DEVIS_ENVOYE
+  ACCEPTE
+  REFUSE
+  ARCHIVE
+}
+
+/// Formulaire « Demander un devis »
+model QuoteRequest {
+  id         String      @id @default(uuid())
+  /// Référence lisible : DEV-2026-0001
+  reference  String      @unique
+  eventType  String
+  services   String[]
+  city       String
+  eventDate  DateTime?
+  guests     Int?
+  hostesses  Int?
+  fullName   String
+  phone      String
+  email      String?
+  message    String?
+  status     QuoteStatus @default(NOUVEAU)
+  /// Notes internes (jamais visibles par le client)
+  adminNote  String?
+  missions   Mission[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([status, createdAt])
+  @@map("quote_requests")
+}
+
+enum ApplicationStatus {
+  NOUVELLE
+  ENTRETIEN
+  RETENUE
+  REFUSEE
+  ARCHIVEE
+}
+
+/// Formulaire « Candidature hôtesse »
+model Application {
+  id           String            @id @default(uuid())
+  reference    String            @unique
+  fullName     String
+  city         String
+  phone        String
+  email        String?
+  age          Int?
+  availability String[]
+  languages    String[]
+  experience   String?
+  motivation   String?
+  status       ApplicationStatus @default(NOUVELLE)
+  adminNote    String?
+  /// Hôtesse créée à partir de cette candidature
+  hostess      Hostess?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  @@index([status, createdAt])
+  @@map("applications")
+}
+
+/// Formulaire « Message rapide » (page Contact)
+model ContactMessage {
+  id        String   @id @default(uuid())
+  fullName  String
+  phone     String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([isRead, createdAt])
+  @@map("contact_messages")
+}
+
+// ---------------------------------------------------------------
+// Organisation interne : hôtesses et planning des missions
+// ---------------------------------------------------------------
+
+model Hostess {
+  id            String   @id @default(uuid())
+  firstName     String
+  lastName      String
+  phone         String
+  email         String?
+  city          String   @default("Bobo-Dioulasso")
+  languages     String[]
+  isActive      Boolean  @default(true)
+  note          String?
+  applicationId String?  @unique
+  application   Application? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+  assignments   MissionAssignment[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([isActive, lastName])
+  @@map("hostesses")
+}
+
+enum MissionStatus {
+  PLANIFIEE
+  CONFIRMEE
+  TERMINEE
+  ANNULEE
+}
+
+/// Une mission = un événement au planning
+model Mission {
+  id              String        @id @default(uuid())
+  reference       String        @unique
+  title           String
+  client          String
+  clientPhone     String?
+  location        String
+  startAt         DateTime
+  endAt           DateTime
+  hostessesNeeded Int           @default(1)
+  dressCode       String?
+  status          MissionStatus @default(PLANIFIEE)
+  notes           String?
+  quoteId         String?
+  quote           QuoteRequest? @relation(fields: [quoteId], references: [id], onDelete: SetNull)
+  assignments     MissionAssignment[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([startAt])
+  @@index([status, startAt])
+  @@map("missions")
+}
+
+model MissionAssignment {
+  id        String   @id @default(uuid())
+  missionId String
+  mission   Mission  @relation(fields: [missionId], references: [id], onDelete: Cascade)
+  hostessId String
+  hostess   Hostess  @relation(fields: [hostessId], references: [id], onDelete: Cascade)
+  /// Poste : accueil, VIP, vestiaire, coordinatrice…
+  role      String?
+  createdAt DateTime @default(now())
+
+  @@unique([missionId, hostessId])
+  @@map("mission_assignments")
+}
+
+// ---------------------------------------------------------------
+// Contenu du site : galerie et réglages (contacts, images)
+// ---------------------------------------------------------------
+
+model Photo {
+  id          String   @id @default(uuid())
+  url         String
+  /// Identifiant Cloudinary (null si l'image vient d'une simple URL)
+  publicId    String?
+  title       String
+  category    String
+  /// Grande photo (format portrait) dans la galerie
+  tall        Boolean  @default(false)
+  position    Int      @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isPublished, position])
+  @@map("photos")
+}
+
+/// Réglages clé → valeur JSON (« contacts », « images »)
+model Setting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
+
+// ---------------------------------------------------------------
+// Administration
+// ---------------------------------------------------------------
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+}
+
+model Admin {
+  id                 String    @id @default(uuid())
+  firstName          String
+  lastName           String
+  email              String    @unique
+  /// Hash scrypt — jamais le mot de passe en clair
+  passwordHash       String
+  role               AdminRole @default(ADMIN)
+  isActive           Boolean   @default(true)
+  mustChangePassword Boolean   @default(true)
+  /// Incrémenté à chaque changement de mot de passe / suspension : les anciennes sessions deviennent invalides
+  sessionVersion     Int       @default(0)
+  lastLoginAt        DateTime?
+  auditLogs          AdminAuditLog[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  @@map("admins")
+}
+
+model AdminAuditLog {
+  id          String   @id @default(uuid())
+  adminId     String?
+  admin       Admin?   @relation(fields: [adminId], references: [id], onDelete: SetNull)
+  action      String
+  targetType  String?
+  targetId    String?
+  targetLabel String?
+  metadata    Json?
+  ip          String?
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+  @@map("admin_audit_logs")
+}

@@ -1,0 +1,19 @@
+# Dépendances et fichiers générés
+node_modules/
+dist/
+.next/
+backend/src/generated/
+*.tsbuildinfo
+next-env.d.ts
+
+# Secrets (jamais sur GitHub)
+.env
+.env.local
+.env.*.local
+SECRETS-A-COPIER.txt
+
+# Divers
+_to_delete/
+index.html
+.DS_Store
+Thumbs.db

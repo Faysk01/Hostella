@@ -1,0 +1,18 @@
+name: hostella-backend
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: hostella-backend-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5435:5432"
+    volumes:
+      - hostella_backend_pgdata:/var/lib/postgresql/data
+
+volumes:
+  hostella_backend_pgdata:

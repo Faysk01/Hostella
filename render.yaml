@@ -1,0 +1,34 @@
+# Render « Blueprint » : crée le backend Hostella en un clic (New → Blueprint).
+# La base de données est sur Neon (gratuite, sans date d'expiration) : collez son adresse dans DATABASE_URL.
+services:
+  - type: web
+    name: hostella-backend
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: backend
+    # --include=dev : TypeScript et Prisma servent à construire (NODE_ENV=production les ignorerait)
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm run db:deploy && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      - key: SITE_URL
+        sync: false
+      - key: REVALIDATE_SECRET
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false

@@ -1,0 +1,17 @@
+# Garde le backend Render (offre gratuite) éveillé : un petit appel toutes les 10 minutes.
+# Réglage : GitHub → Settings → Secrets and variables → Actions → Variables → BACKEND_URL
+# (ex. https://hostella-backend.onrender.com)
+name: Réveil du backend
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    if: ${{ vars.BACKEND_URL != '' }}
+    steps:
+      - name: Appel de /api/health
+        run: curl -fsS --max-time 90 "${{ vars.BACKEND_URL }}/api/health" || true
