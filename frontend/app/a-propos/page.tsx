@@ -23,7 +23,7 @@ export default async function AboutPage() {
       />
 
       {/* Histoire + mission / vision */}
-      <section className="px-5 py-24 md:px-8 md:py-32">
+      <section data-bg="ivory" className="px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <ScrollRevealText
@@ -53,13 +53,13 @@ export default async function AboutPage() {
       </section>
 
       {/* Valeurs */}
-      <section className="bg-white px-5 py-24 md:px-8 md:py-28">
+      <section data-bg="blush" className="px-5 py-24 md:px-8 md:py-28">
         <div className="mx-auto max-w-7xl">
           <SectionTitle light center eyebrow="Nos valeurs" title="Ce qui nous guide." highlight={["guide."]} />
           <div className="mt-12 flex flex-wrap justify-center gap-4">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 0.06}>
-                <div className="group w-[260px] rounded-[1.5rem] border border-ink/10 bg-cream p-6 transition-all duration-500 hover:-translate-y-2 hover:border-bordeaux/30 hover:bg-bordeaux hover:shadow-xl hover:shadow-bordeaux/20">
+                <div className="group w-[260px] rounded-[1.5rem] border border-ink/10 bg-white/80 p-6 transition-all duration-500 hover:-translate-y-2 hover:border-bordeaux/30 hover:bg-bordeaux hover:shadow-xl hover:shadow-bordeaux/20">
                   <Diamond className="h-6 w-6 text-bordeaux transition-colors group-hover:text-gold" />
                   <h3 className="font-display mt-4 text-xl font-extrabold text-ink transition-colors group-hover:text-white">{v.title}</h3>
                   <p className="mt-1 text-sm text-ink/65 transition-colors group-hover:text-white/80">{v.text}</p>
@@ -71,10 +71,10 @@ export default async function AboutPage() {
       </section>
 
       {/* Identité culturelle */}
-      <section className="relative overflow-hidden bg-night px-5 py-24 md:px-8 md:py-32">
-        <div className="pattern-diamonds absolute inset-0 opacity-[0.05]" />
+      <section data-bg="champagne" className="relative overflow-hidden px-5 py-24 md:px-8 md:py-32">
+        <div className="pattern-diamonds absolute inset-0 opacity-[0.07]" />
         <div className="relative mx-auto max-w-7xl">
-          <SectionTitle eyebrow="Notre emblème" title="La tradition rencontre l'élégance." highlight={["l'élégance."]} />
+          <SectionTitle light eyebrow="Notre emblème" title="La tradition rencontre l'élégance." highlight={["l'élégance."]} />
           <div className="mt-14">
             <CultureIdentity />
           </div>

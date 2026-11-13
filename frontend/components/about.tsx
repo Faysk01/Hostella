@@ -67,18 +67,18 @@ export function CultureIdentity() {
       <div className="relative mx-auto aspect-square w-full max-w-[520px]">
         <motion.div style={{ rotate: ring }} className="absolute inset-0 rounded-full border border-dashed border-gold/40" />
         <motion.div style={{ rotate: ring }} className="absolute inset-[8%] rounded-full border border-magenta/30" />
-        <div className="absolute inset-[15%] rounded-full bg-gradient-to-br from-bordeaux/60 to-magenta/20 blur-2xl" />
+        <div className="absolute inset-[15%] rounded-full bg-gradient-to-br from-gold/30 to-magenta/30 blur-2xl" />
         <motion.div style={{ rotate, scale }} className="absolute inset-[10%]">
-          <Image src={img.logo} alt="Emblème Hostella Agency" fill sizes="(min-width:1024px) 40vw, 80vw" className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,.6)]" />
+          <Image src={img.logo} alt="Emblème Hostella Agency" fill sizes="(min-width:1024px) 40vw, 80vw" className="object-contain drop-shadow-[0_20px_40px_rgba(146,48,76,.25)]" />
         </motion.div>
       </div>
       <ul className="grid gap-3 sm:grid-cols-2">
         {symbols.map((s, i) => (
           <Reveal as="li" key={s.k} delay={i * 0.08}>
-            <div className="h-full rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur transition hover:-translate-y-1 hover:border-gold/40">
-              <Diamond className="h-5 w-5 text-gold" />
-              <p className="font-display mt-3 text-lg font-extrabold text-white">{s.k}</p>
-              <p className="mt-1 text-sm text-white/65">{s.v}</p>
+            <div className="h-full rounded-2xl border border-ink/10 bg-white/80 p-5 backdrop-blur transition hover:-translate-y-1 hover:border-gold/60 hover:shadow-lg hover:shadow-gold/10">
+              <Diamond className="h-5 w-5 text-bordeaux" />
+              <p className="font-display mt-3 text-lg font-extrabold text-ink">{s.k}</p>
+              <p className="mt-1 text-sm text-ink/65">{s.v}</p>
             </div>
           </Reveal>
         ))}

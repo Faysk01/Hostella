@@ -25,7 +25,7 @@ export default async function ServicesPage() {
       {services.map((s, i) => {
         const reverse = i % 2 === 1;
         return (
-          <section key={s.slug} id={s.slug} className={`scroll-mt-28 px-5 py-20 md:px-8 md:py-24 ${i % 2 ? "bg-white" : ""}`}>
+          <section key={s.slug} id={s.slug} data-bg={i % 2 ? "blush" : "ivory"} className="scroll-mt-28 px-5 py-20 md:px-8 md:py-24">
             <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
               <div className={`relative ${reverse ? "lg:order-2" : ""}`}>
                 <CurtainImage src={img[s.image]} alt={s.title} className="h-[320px] rounded-[2rem] md:h-[440px]" sizes="(min-width:1024px) 45vw, 100vw" />
@@ -66,7 +66,7 @@ export default async function ServicesPage() {
         </div>
       </div>
 
-      <section className="px-5 py-24 md:px-8 md:py-28">
+      <section data-bg="champagne" className="px-5 py-24 md:px-8 md:py-28">
         <div className="mx-auto max-w-6xl">
           <SectionTitle light center eyebrow="Comment ça marche" title="Simple comme 1, 2, 3." highlight={["1,", "2,", "3."]} />
           <div className="mt-16">

@@ -2,105 +2,91 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { img, nav } from "@/lib/site";
 import { useContent } from "./ContentProvider";
-import { Button, WhatsAppIcon } from "./ui";
-import { Marquee } from "./motion";
+import { WhatsAppIcon } from "./ui";
 
+/** Pied de page compact : identité, navigation, contact. */
 export default function Footer() {
   const { site, wa } = useContent();
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-30%", "0%"]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
 
   return (
-    <footer ref={ref} className="relative overflow-hidden bg-night pt-10">
-      <div className="textile-band opacity-90" />
-      <div className="font-display border-y border-white/10 py-6 text-3xl font-extrabold text-white/90 md:text-5xl">
-        <Marquee items={["Hôtesses d'accueil", "Protocole", "Mariages", "Conférences", "Lancements", "Galas", "Festivals", "Salons"]} />
-      </div>
+    <footer data-bg="sand" className="relative overflow-hidden bg-sand text-ink">
+      <div className="textile-band opacity-80" />
+      <div className="pointer-events-none absolute -right-24 top-10 h-72 w-72 rounded-full bg-magenta/15 blur-[110px]" />
 
-      <div className="pointer-events-none absolute left-1/2 top-1/3 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-bordeaux/30 blur-[140px]" />
-
-      <div className="relative mx-auto max-w-7xl px-5 pt-20 md:px-8">
-        <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <h2 className="font-display text-4xl font-extrabold leading-[1.05] text-white md:text-6xl">
-              Votre événement mérite un <span className="text-shine font-serif font-normal italic">accueil</span> à la hauteur.
-            </h2>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/devis">Demander un devis</Button>
-              <Button href={wa()} external variant="whatsapp">
-                <span className="flex items-center gap-2">
-                  <WhatsAppIcon className="h-4 w-4" /> WhatsApp
-                </span>
-              </Button>
-            </div>
-          </div>
-
-          <div className="md:col-span-3 md:col-start-7">
-            <p className="mb-5 text-xs font-bold uppercase tracking-[0.25em] text-gold">Navigation</p>
-            <ul className="space-y-2.5">
-              {[...nav, { href: "/devis", label: "Demander un devis" }].map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="group inline-flex items-center gap-2 text-white/70 transition-colors hover:text-white">
-                    <span className="h-px w-0 bg-gold transition-all duration-300 group-hover:w-5" />
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="md:col-span-3">
-            <p className="mb-5 text-xs font-bold uppercase tracking-[0.25em] text-gold">Contact</p>
-            <ul className="space-y-4 text-white/75">
-              <li className="flex gap-3">
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-magenta" /> {site.city}
-              </li>
-              <li>
-                <a href={wa()} target="_blank" rel="noopener noreferrer" className="flex gap-3 hover:text-white">
-                  <WhatsAppIcon className="mt-0.5 h-5 w-5 shrink-0 text-[#25d366]" /> {site.whatsapp}
-                </a>
-              </li>
-              <li>
-                <a href={`tel:${site.phoneRaw}`} className="flex gap-3 hover:text-white">
-                  <Phone className="mt-0.5 h-5 w-5 shrink-0 text-gold" /> {site.phone}
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${site.email}`} className="flex gap-3 break-all hover:text-white">
-                  <Mail className="mt-0.5 h-5 w-5 shrink-0 text-gold" /> {site.email}
-                </a>
-              </li>
-            </ul>
-            <div className="mt-6 flex flex-wrap gap-2">
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-12 md:gap-8 md:px-8 md:py-16">
+        {/* Identité */}
+        <div className="flex flex-col items-center text-center md:col-span-5 md:items-start md:text-left">
+          <Link href="/" className="flex items-center gap-4" aria-label="Hostella Agency, accueil">
+            <span className="relative h-20 w-20 shrink-0 md:h-24 md:w-24">
+              <Image src={img.logo} alt="" fill sizes="96px" className="object-contain" />
+            </span>
+            <span className="text-left leading-none">
+              <span className="font-display block text-3xl font-extrabold tracking-tight text-bordeaux md:text-4xl">HOSTELLA</span>
+              <span className="mt-1 block text-xs font-bold uppercase tracking-[0.35em] text-gold-deep">Agency</span>
+            </span>
+          </Link>
+          <p className="font-serif mt-4 text-xl italic text-ink/70">{site.slogan}.</p>
+          {site.socials.length > 0 && (
+            <div className="mt-5 flex flex-wrap justify-center gap-2 md:justify-start">
               {site.socials.map((s) => (
-                <a key={s.label} href={s.href} className="rounded-full border border-white/15 px-3.5 py-1.5 text-xs font-semibold text-white/70 transition hover:border-gold hover:text-gold">
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="rounded-full border border-ink/15 px-3.5 py-1.5 text-xs font-semibold text-ink/70 transition hover:border-bordeaux hover:text-bordeaux">
                   {s.label}
                 </a>
               ))}
             </div>
+          )}
+        </div>
+
+        {/* Navigation */}
+        <nav className="md:col-span-3" aria-label="Pied de page">
+          <p className="mb-4 text-center text-xs font-bold uppercase tracking-[0.25em] text-bordeaux md:text-left">Navigation</p>
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-2.5 text-center md:grid-cols-1 md:text-left">
+            {nav.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-ink/70 transition-colors hover:text-bordeaux">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Contact */}
+        <div className="md:col-span-4">
+          <p className="mb-4 text-center text-xs font-bold uppercase tracking-[0.25em] text-bordeaux md:text-left">Contact</p>
+          <ul className="mx-auto max-w-xs space-y-3 text-ink/75 md:mx-0">
+            <li className="flex gap-3"><MapPin className="mt-0.5 h-5 w-5 shrink-0 text-bordeaux" /> {site.city}</li>
+            <li>
+              <a href={wa()} target="_blank" rel="noopener noreferrer" className="flex gap-3 hover:text-bordeaux">
+                <WhatsAppIcon className="mt-0.5 h-5 w-5 shrink-0 text-[#1f9d55]" /> {site.whatsapp}
+              </a>
+            </li>
+            <li>
+              <a href={`tel:${site.phoneRaw}`} className="flex gap-3 hover:text-bordeaux">
+                <Phone className="mt-0.5 h-5 w-5 shrink-0 text-gold-deep" /> {site.phone}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${site.email}`} className="flex gap-3 break-all hover:text-bordeaux">
+                <Mail className="mt-0.5 h-5 w-5 shrink-0 text-gold-deep" /> {site.email}
+              </a>
+            </li>
+          </ul>
+          <div className="mt-6 flex justify-center md:justify-start">
+            <Link href="/devis" className="group inline-flex items-center gap-2 rounded-full bg-bordeaux px-5 py-3 text-sm font-bold text-white transition hover:bg-wine">
+              Demander un devis <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Grand nom en bas de page */}
-      <motion.div style={{ y, scale }} className="relative mt-16 flex items-end justify-center gap-4 px-4 pb-4 md:mt-24">
-        <span className="relative hidden h-[14vw] w-[14vw] max-h-48 max-w-48 sm:block">
-          <Image src={img.logo} alt="" fill sizes="200px" className="object-contain" />
-        </span>
-        <span className="font-display text-gold-grad select-none text-[19vw] font-black leading-[0.8] tracking-[-0.06em] sm:text-[16vw]">HOSTELLA</span>
-      </motion.div>
-
-      <div className="relative border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-5 py-6 text-xs text-white/45 md:flex-row md:px-8">
+      <div className="relative border-t border-ink/10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-1 px-5 py-5 pb-[calc(env(safe-area-inset-bottom)+1.25rem)] text-center text-xs text-ink/50 md:flex-row md:px-8 md:text-left">
           <p>© 2026 {site.name} — {site.slogan}.</p>
-          <p>Photos d&apos;illustration provisoires (Pexels &amp; visuels Hostella).</p>
+          <p>Photos d&apos;illustration provisoires.</p>
         </div>
       </div>
     </footer>

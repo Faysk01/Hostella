@@ -14,7 +14,7 @@ export default async function RealisationsPage() {
   return (
     <>
       <PageHero eyebrow="Réalisations" title="Des moments qui marquent les esprits." highlight={["marquent"]} text="Notre galerie grandit à chaque prestation." image={img.realisations_hero} />
-      <section className="px-5 py-20 md:px-8 md:py-24">
+      <section data-bg="champagne" className="px-5 py-20 md:px-8 md:py-24">
         <div className="mx-auto max-w-7xl">
           <Reveal>
             <p className="mb-8 rounded-2xl border border-gold/40 bg-gold/10 p-4 text-ink/75">

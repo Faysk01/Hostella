@@ -10,8 +10,8 @@ export default async function Home() {
       <HomeHero />
 
       {/* ===== Notre conviction ===== */}
-      <section className="relative overflow-hidden px-5 py-24 md:px-8 md:py-32">
-        <div className="absolute -right-32 top-10 h-96 w-96 rounded-full bg-magenta/10 blur-[120px]" />
+      <section data-bg="ivory" className="relative overflow-hidden px-5 py-24 md:px-8 md:py-32">
+        <div className="absolute -right-32 top-10 h-96 w-96 rounded-full bg-magenta/20 blur-[120px]" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Reveal>
@@ -39,7 +39,7 @@ export default async function Home() {
       </section>
 
       {/* ===== Services ===== */}
-      <section className="relative bg-white pt-20">
+      <section data-bg="blush" className="relative pt-20">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <SectionTitle light eyebrow="Nos services" title="Quatre façons de sublimer votre événement." highlight={["sublimer"]} />
         </div>
@@ -50,7 +50,7 @@ export default async function Home() {
       <HorizontalUniverses />
 
       {/* ===== Comment ça marche ===== */}
-      <section className="bg-white px-5 py-24 md:px-8 md:py-32">
+      <section data-bg="rose" className="px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
           <SectionTitle light center eyebrow="Comment ça marche" title="Simple comme 1, 2, 3." highlight={["1,", "2,", "3."]} />
           <div className="mt-16">
@@ -63,15 +63,15 @@ export default async function Home() {
       </section>
 
       {/* ===== Recrutement ===== */}
-      <section className="relative overflow-hidden bg-night px-5 py-24 md:px-8 md:py-28">
-        <div className="pattern-diamonds absolute inset-0 opacity-[0.05]" />
-        <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-magenta/25 blur-[130px]" />
+      <section data-bg="sand" className="relative overflow-hidden px-5 py-24 md:px-8 md:py-28">
+        <div className="pattern-diamonds absolute inset-0 opacity-[0.06]" />
+        <div className="absolute -left-32 top-0 h-96 w-96 rounded-full bg-gold/20 blur-[130px]" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
           <CurtainImage src={img.recruitHome} alt="Hôtesse Hostella souriante" className="h-[380px] rounded-[2rem] md:h-[480px]" sizes="(min-width:1024px) 50vw, 100vw" />
           <div>
-            <SectionTitle eyebrow="Recrutement" title="Devenez hôtesse Hostella." highlight={["Hostella."]} />
+            <SectionTitle light eyebrow="Recrutement" title="Devenez hôtesse Hostella." highlight={["Hostella."]} />
             <Reveal delay={0.2}>
-              <p className="mt-6 text-lg text-white/70">Souriante, ponctuelle et passionnée par l&apos;accueil ? Nous vous formons et vous accompagnons sur de vrais événements.</p>
+              <p className="mt-6 text-lg text-ink/70">Souriante, ponctuelle et passionnée par l&apos;accueil ? Nous vous formons et vous accompagnons sur de vrais événements.</p>
               <div className="mt-8">
                 <Button href="/recrutement">Déposer ma candidature</Button>
               </div>

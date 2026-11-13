@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function DevisPage() {
   const { site } = await getContent();
   return (
-    <section className="relative overflow-hidden px-5 pb-24 pt-32 md:px-8 md:pb-28 md:pt-40">
+    <section data-bg="blush" className="relative overflow-hidden px-5 pb-24 pt-32 md:px-8 md:pb-28 md:pt-40">
       <div className="absolute -right-40 -top-20 h-[520px] w-[520px] rounded-full bg-magenta/15 blur-[150px]" />
       <div className="absolute -left-40 bottom-0 h-[420px] w-[420px] rounded-full bg-gold/20 blur-[150px]" />
       <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-12">

@@ -24,7 +24,7 @@ export default async function RecrutementPage() {
         image={img.recrutement_hero}
       />
 
-      <section className="px-5 py-24 md:px-8 md:py-28">
+      <section data-bg="ivory" className="px-5 py-24 md:px-8 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-2">
           <div>
             <SectionTitle light eyebrow="Le profil" title="Ce que nous recherchons." highlight={["recherchons."]} />
@@ -58,8 +58,8 @@ export default async function RecrutementPage() {
         </div>
       </section>
 
-      <section id="candidature" className="relative overflow-hidden bg-white px-5 py-24 md:px-8 md:py-28">
-        <div className="absolute -right-40 top-10 h-[420px] w-[420px] rounded-full bg-magenta/10 blur-[140px]" />
+      <section id="candidature" data-bg="blush" className="relative overflow-hidden px-5 py-24 md:px-8 md:py-28">
+        <div className="absolute -right-40 top-10 h-[420px] w-[420px] rounded-full bg-magenta/20 blur-[140px]" />
         <div className="relative mx-auto max-w-4xl">
           <SectionTitle light center eyebrow="Candidature" title="Rejoignez l'équipe." highlight={["l'équipe."]} text="Votre candidature s'ouvre dans WhatsApp, prête à envoyer. Joignez-y votre CV et une photo." />
           <Reveal className="mt-12">

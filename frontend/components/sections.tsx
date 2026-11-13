@@ -31,12 +31,12 @@ export function HomeHero() {
       <motion.div style={{ scale: imgScale }} className="absolute inset-0">
         <Image src={slots.hero} alt="Hôtesses Hostella en uniforme bordeaux et or" fill priority sizes="100vw" className="object-cover object-[50%_30%]" />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-night/70 via-night/60 to-night" />
-      <div className="absolute inset-0 bg-gradient-to-r from-night via-night/70 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-night/45 via-night/25 to-night/75" />
+      <div className="absolute inset-0 bg-gradient-to-r from-night/80 via-night/40 to-transparent" />
       <div className="pattern-diamonds absolute inset-0 opacity-[0.06]" />
 
       {/* Halos de couleur */}
-      <motion.div animate={{ x: [0, 60, 0], y: [0, -40, 0] }} transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }} className="absolute -left-32 top-1/4 h-[420px] w-[420px] rounded-full bg-magenta/30 blur-[130px]" />
+      <motion.div animate={{ x: [0, 60, 0], y: [0, -40, 0] }} transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }} className="absolute -left-32 top-1/4 h-[420px] w-[420px] rounded-full bg-magenta/25 blur-[130px]" />
       <motion.div animate={{ x: [0, -50, 0], y: [0, 50, 0] }} transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }} className="absolute -right-20 bottom-10 h-[380px] w-[380px] rounded-full bg-gold/20 blur-[130px]" />
 
       <motion.div style={{ y: yText, opacity: fade }} className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-5 pb-28 pt-28 md:px-8 md:pb-36 md:pt-32">
@@ -241,9 +241,9 @@ export function HorizontalUniverses() {
   }, []);
 
   return (
-    <section ref={section} className="relative bg-cream text-ink" style={{ height: `calc(100svh + ${dist}px)` }}>
+    <section ref={section} data-bg="champagne" className="relative text-ink" style={{ height: `calc(100svh + ${dist}px)` }}>
       <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
-        <div className="pattern-diamonds pointer-events-none absolute inset-0 opacity-[0.12]" />
+        <div className="pattern-diamonds pointer-events-none absolute inset-0 opacity-[0.08]" />
         <motion.div ref={track} style={{ x }} className="relative flex items-stretch gap-5 px-5 md:gap-8 md:px-12">
           <div className="flex w-[82vw] shrink-0 flex-col justify-center sm:w-[60vw] lg:w-[34vw]">
             <Eyebrow light>Nos univers</Eyebrow>
@@ -352,16 +352,17 @@ export function CTABand({ title = "Prêt à offrir un accueil inoubliable ?", te
   return (
     <section className="px-3 py-16 md:px-6 md:py-24">
       <Reveal>
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-magenta via-ruby to-wine px-6 py-16 text-center md:px-16 md:py-24">
-          <div className="pattern-diamonds absolute inset-0 opacity-[0.15]" />
-          <motion.div animate={{ rotate: 360 }} transition={{ duration: 60, repeat: Infinity, ease: "linear" }} className="absolute -right-24 -top-24 h-72 w-72 opacity-30">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] border border-gold/25 bg-gradient-to-br from-blush via-cream to-champagne px-6 py-16 text-center shadow-[0_30px_80px_-40px_rgba(146,48,76,.35)] md:px-16 md:py-24">
+          <div className="pattern-diamonds absolute inset-0 opacity-[0.1]" />
+          <div className="absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-magenta/25 blur-[100px]" />
+          <motion.div animate={{ rotate: 360 }} transition={{ duration: 60, repeat: Infinity, ease: "linear" }} className="absolute -right-24 -top-24 h-72 w-72 opacity-20">
             <Image src={img.logo} alt="" fill sizes="300px" className="object-contain" />
           </motion.div>
           <div className="relative">
-            <h2 className="font-display mx-auto max-w-4xl text-4xl font-extrabold leading-[1] text-white md:text-7xl">
-              <SplitText text={title} highlight={["inoubliable", "équipe", "Hostella"]} highlightClass="font-serif italic font-normal text-gold-light" />
+            <h2 className="font-display mx-auto max-w-4xl text-4xl font-extrabold leading-[1] text-ink md:text-7xl">
+              <SplitText text={title} highlight={["inoubliable", "équipe", "Hostella"]} highlightClass="font-serif italic font-normal text-bordeaux" />
             </h2>
-            <p className="mx-auto mt-6 max-w-xl text-lg text-white/85">{text}</p>
+            <p className="mx-auto mt-6 max-w-xl text-lg text-ink/70">{text}</p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <Button href="/devis">Demander un devis</Button>
               <Button href={wa()} external variant="whatsapp">
@@ -388,7 +389,7 @@ export function PageHero({ eyebrow, title, highlight = [], text, image }: { eyeb
   return (
     <section ref={ref} className="relative flex min-h-[78svh] items-end overflow-hidden pb-16 pt-36 md:min-h-[86svh] md:pb-24">
       <ParallaxImage src={image} alt="" className="!absolute inset-0" strength={120} priority />
-      <div className="absolute inset-0 bg-gradient-to-t from-night via-night/75 to-night/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-night/85 via-night/45 to-night/20" />
       <div className="pattern-diamonds absolute inset-0 opacity-[0.05]" />
       <div className="absolute -left-20 bottom-0 h-80 w-80 rounded-full bg-magenta/25 blur-[120px]" />
       <motion.div style={{ y, opacity }} className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
@@ -398,9 +399,9 @@ export function PageHero({ eyebrow, title, highlight = [], text, image }: { eyeb
           </span>
         </motion.div>
         <h1 className="font-display mt-6 max-w-5xl text-[12vw] font-extrabold leading-[0.95] text-white sm:text-6xl lg:text-8xl">
-          <SplitText immediate delay={0.5} text={title} highlight={highlight} />
+          <SplitText immediate delay={0.25} text={title} highlight={highlight} />
         </h1>
-        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1, duration: 0.8 }} className="mt-6 max-w-2xl text-lg text-white/75 md:text-xl">
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }} className="mt-6 max-w-2xl text-lg text-white/85 md:text-xl">
           {text}
         </motion.p>
       </motion.div>

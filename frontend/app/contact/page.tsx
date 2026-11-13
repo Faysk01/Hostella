@@ -24,7 +24,7 @@ export default async function ContactPage() {
     <>
       <PageHero eyebrow="Contact" title="Parlons de votre projet." highlight={["projet."]} text="Mariage, conférence, lancement ou réception : nous vous répondons rapidement." image={img.contact_hero} />
 
-      <section className="px-5 py-20 md:px-8 md:py-24">
+      <section data-bg="ivory" className="px-5 py-20 md:px-8 md:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {cards.map((c, i) => (
@@ -58,7 +58,7 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      <section className="bg-white px-5 py-20 md:px-8 md:py-24">
+      <section data-bg="rose" className="px-5 py-20 md:px-8 md:py-24">
         <div className="mx-auto max-w-4xl">
           <SectionTitle light center eyebrow="FAQ" title="Questions fréquentes" highlight={["fréquentes"]} />
           <div className="mt-10">

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Instrument_Serif, Manrope } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import ScrollBackground from "@/components/ScrollBackground";
 import { ContentProvider } from "@/components/ContentProvider";
 import { API_URL, getContent } from "@/lib/content";
 import Header from "@/components/Header";
@@ -53,6 +54,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <body className="grain">
         <ContentProvider value={{ ...content, apiUrl: API_URL }}>
           <Providers>
+            <ScrollBackground />
             <Preloader />
             <CursorGlow />
             <Header />

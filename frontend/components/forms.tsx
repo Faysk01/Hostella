@@ -39,7 +39,7 @@ function SlowHint({ active, className = "" }: { active: boolean; className?: str
     return () => clearTimeout(t);
   }, [active]);
   if (!slow) return null;
-  return <p className={`text-sm text-white/60 ${className}`}>Connexion au serveur… encore quelques secondes, merci de patienter.</p>;
+  return <p className={`text-sm text-ink/60 ${className}`}>Connexion au serveur… encore quelques secondes, merci de patienter.</p>;
 }
 
 /** Champ invisible anti-robot */
@@ -58,10 +58,10 @@ function Choice({ active, onClick, icon, label }: { active: boolean; onClick: ()
       onClick={onClick}
       whileTap={{ scale: 0.96 }}
       className={`relative flex items-center gap-3 overflow-hidden rounded-2xl border p-4 text-left font-semibold transition-colors md:p-5 ${
-        active ? "border-gold bg-gold/10 text-white" : "border-white/10 bg-white/[0.03] text-white/70 hover:border-white/30"
+        active ? "border-gold bg-gold/10 text-ink" : "border-ink/10 bg-cream text-ink/70 hover:border-ink/30"
       }`}
     >
-      <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl transition-colors ${active ? "bg-gold text-ink" : "bg-white/10 text-gold"}`}>{icon}</span>
+      <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl transition-colors ${active ? "bg-gold text-ink" : "bg-bordeaux/10 text-bordeaux"}`}>{icon}</span>
       <span className="flex-1">{label}</span>
       <AnimatePresence>
         {active && (
@@ -75,7 +75,7 @@ function Choice({ active, onClick, icon, label }: { active: boolean; onClick: ()
 }
 
 function Label({ children }: { children: React.ReactNode }) {
-  return <span className="mb-2 block text-sm font-bold text-white/80">{children}</span>;
+  return <span className="mb-2 block text-sm font-bold text-ink/80">{children}</span>;
 }
 
 /* =========================================================
@@ -171,15 +171,15 @@ export function QuoteForm() {
   if (sent) return <Success summary={summary} result={sent} onBack={() => setSent(null)} kind="devis" />;
 
   return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-night-2/80 p-5 shadow-2xl shadow-black/40 backdrop-blur md:p-10">
+    <div className="relative overflow-hidden rounded-[2rem] border border-ink/10 bg-white p-5 shadow-2xl shadow-bordeaux/10 backdrop-blur md:p-10">
       {/* Progression */}
       <div className="mb-8 flex items-center gap-2">
         {titles.map((t, i) => (
           <button key={t} type="button" onClick={() => i < step && go(i)} className="flex-1 text-left" aria-label={`Étape ${i + 1} : ${t}`}>
-            <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+            <div className="h-1.5 overflow-hidden rounded-full bg-bordeaux/10">
               <motion.div className="h-full bg-gradient-to-r from-magenta to-gold" initial={false} animate={{ width: i <= step ? "100%" : "0%" }} transition={{ duration: 0.5 }} />
             </div>
-            <span className={`mt-2 hidden text-xs font-bold md:block ${i === step ? "text-gold" : "text-white/40"}`}>
+            <span className={`mt-2 hidden text-xs font-bold md:block ${i === step ? "text-bordeaux" : "text-ink/40"}`}>
               {i + 1}. {t}
             </span>
           </button>
@@ -187,7 +187,7 @@ export function QuoteForm() {
       </div>
 
       <p className="text-xs font-bold uppercase tracking-[0.25em] text-magenta">Étape {step + 1} / 4</p>
-      <h2 className="font-display mt-1 text-3xl font-extrabold text-white md:text-4xl">{titles[step]}</h2>
+      <h2 className="font-display mt-1 text-3xl font-extrabold text-ink md:text-4xl">{titles[step]}</h2>
 
       <div className="relative mt-7 min-h-[300px]">
         <AnimatePresence mode="wait" custom={dir}>
@@ -208,7 +208,7 @@ export function QuoteForm() {
             )}
             {step === 1 && (
               <>
-                <p className="mb-4 text-white/60">Plusieurs choix possibles.</p>
+                <p className="mb-4 text-ink/60">Plusieurs choix possibles.</p>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {prestations.map((p) => (
                     <Choice key={p} active={d.prestations.includes(p)} onClick={() => togglePrest(p)} icon={<Sparkles className="h-5 w-5" />} label={p} />
@@ -254,7 +254,7 @@ export function QuoteForm() {
                   <Label>E-mail (facultatif)</Label>
                   <input type="email" className="field" value={d.email} onChange={(e) => set("email", e.target.value)} placeholder="vous@exemple.com" autoComplete="email" />
                 </label>
-                <p className="text-sm text-white/45 sm:col-span-2">Vos informations servent uniquement à préparer votre proposition. Elles ne sont jamais cédées à des tiers.</p>
+                <p className="text-sm text-ink/45 sm:col-span-2">Vos informations servent uniquement à préparer votre proposition. Elles ne sont jamais cédées à des tiers.</p>
               </div>
             )}
           </motion.div>
@@ -262,7 +262,7 @@ export function QuoteForm() {
       </div>
 
       <div className="mt-8 flex items-center justify-between gap-3">
-        <button type="button" onClick={() => go(step - 1)} disabled={step === 0} className="inline-flex items-center gap-2 rounded-full px-4 py-3 font-bold text-white/70 transition hover:text-white disabled:invisible">
+        <button type="button" onClick={() => go(step - 1)} disabled={step === 0} className="inline-flex items-center gap-2 rounded-full px-4 py-3 font-bold text-ink/70 transition hover:text-ink disabled:invisible">
           <ArrowLeft className="h-4 w-4" /> Retour
         </button>
         {step < 3 ? (
@@ -287,7 +287,7 @@ export function QuoteForm() {
       </div>
       <Honeypot value={trap} onChange={setTrap} />
       <SlowHint active={sending} className="mt-4 text-right" />
-      {error && <p className="mt-4 rounded-xl bg-magenta/15 px-4 py-3 text-sm font-semibold text-white">{error}</p>}
+      {error && <p className="mt-4 rounded-xl bg-ruby/10 px-4 py-3 text-sm font-semibold text-ink">{error}</p>}
     </div>
   );
 }
@@ -357,7 +357,7 @@ export function ApplicationForm() {
         else if (r.network) setSent({ mode: "whatsapp" });
         else setError(r.message);
       }}
-      className="relative grid gap-5 rounded-[2rem] border border-white/10 bg-night-2/80 p-5 shadow-2xl shadow-black/40 backdrop-blur sm:grid-cols-2 md:p-10"
+      className="relative grid gap-5 rounded-[2rem] border border-ink/10 bg-white p-5 shadow-2xl shadow-bordeaux/10 backdrop-blur sm:grid-cols-2 md:p-10"
     >
       <label className="sm:col-span-2">
         <Label>Nom et prénom *</Label>
@@ -409,13 +409,13 @@ export function ApplicationForm() {
         <textarea rows={3} className="field resize-none" value={d.motivation} onChange={(e) => set("motivation", e.target.value)} />
       </label>
 
-      <label className="flex cursor-pointer items-start gap-3 text-sm text-white/65 sm:col-span-2">
+      <label className="flex cursor-pointer items-start gap-3 text-sm text-ink/65 sm:col-span-2">
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 h-5 w-5 accent-[#e8b53a]" />
         J&apos;accepte que Hostella Agency utilise ces informations uniquement pour étudier ma candidature. Elles restent confidentielles et ne sont jamais cédées à des tiers.
       </label>
 
       <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-white/45">Le CV et la photo pourront être envoyés ensuite sur WhatsApp.</p>
+        <p className="text-sm text-ink/45">Le CV et la photo pourront être envoyés ensuite sur WhatsApp.</p>
         <Honeypot value={trap} onChange={setTrap} />
         <button
           type="submit"
@@ -426,7 +426,7 @@ export function ApplicationForm() {
         </button>
       </div>
       <SlowHint active={sending} className="sm:col-span-2" />
-      {error && <p className="rounded-xl bg-magenta/15 px-4 py-3 text-sm font-semibold text-white sm:col-span-2">{error}</p>}
+      {error && <p className="rounded-xl bg-ruby/10 px-4 py-3 text-sm font-semibold text-ink sm:col-span-2">{error}</p>}
     </form>
   );
 }
@@ -437,7 +437,7 @@ function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; chi
       type="button"
       whileTap={{ scale: 0.92 }}
       onClick={onClick}
-      className={`rounded-full border px-4 py-2 text-sm font-bold transition-colors ${on ? "border-gold bg-gold text-ink" : "border-white/15 text-white/70 hover:border-white/40"}`}
+      className={`rounded-full border px-4 py-2 text-sm font-bold transition-colors ${on ? "border-gold bg-gold text-ink" : "border-ink/15 text-ink/70 hover:border-ink/40"}`}
     >
       {children}
     </motion.button>
@@ -457,7 +457,7 @@ function Success({ summary, result, onBack, kind }: { summary: string; result: S
       ref={box}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="relative overflow-hidden rounded-[2rem] border border-gold/30 bg-night-2 p-8 text-center md:p-14"
+      className="relative overflow-hidden rounded-[2rem] border border-gold/30 bg-white p-8 text-center md:p-14"
     >
       <div className="pattern-diamonds absolute inset-0 opacity-[0.06]" />
       {Array.from({ length: 14 }).map((_, i) => (
@@ -477,15 +477,15 @@ function Success({ summary, result, onBack, kind }: { summary: string; result: S
       >
         <Check className="h-10 w-10" strokeWidth={3} />
       </motion.div>
-      <h3 className="font-display relative mt-6 text-3xl font-extrabold text-white md:text-4xl">
+      <h3 className="font-display relative mt-6 text-3xl font-extrabold text-ink md:text-4xl">
         {saved ? (kind === "devis" ? "Demande bien reçue !" : "Candidature bien reçue !") : kind === "devis" ? "Votre demande est prête !" : "Votre candidature est prête !"}
       </h3>
       {saved && result.reference && (
-        <p className="relative mt-3 text-sm text-white/60">
-          Référence : <span className="font-mono font-bold tracking-wider text-gold">{result.reference}</span>
+        <p className="relative mt-3 text-sm text-ink/60">
+          Référence : <span className="font-mono font-bold tracking-wider text-bordeaux">{result.reference}</span>
         </p>
       )}
-      <p className="relative mx-auto mt-3 max-w-md text-white/70">
+      <p className="relative mx-auto mt-3 max-w-md text-ink/70">
         {saved
           ? kind === "devis"
             ? "Notre équipe étudie votre demande et vous recontacte très vite. Pour aller plus vite, écrivez-nous aussi sur WhatsApp."
@@ -496,7 +496,7 @@ function Success({ summary, result, onBack, kind }: { summary: string; result: S
         <a href={wa(summary)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#25d366] px-6 py-3 font-bold text-[#06260f]">
           <WhatsAppIcon className="h-5 w-5" /> {saved ? "Écrire sur WhatsApp" : "Envoyer sur WhatsApp"}
         </a>
-        <a href={`mailto:${site.email}?subject=${encodeURIComponent(kind === "devis" ? "Demande de devis" : "Candidature hôtesse")}&body=${encodeURIComponent(summary)}`} className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 font-bold text-white">
+        <a href={`mailto:${site.email}?subject=${encodeURIComponent(kind === "devis" ? "Demande de devis" : "Candidature hôtesse")}&body=${encodeURIComponent(summary)}`} className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 font-bold text-ink">
           <Mail className="h-5 w-5" /> Par e-mail
         </a>
         <button
@@ -504,12 +504,12 @@ function Success({ summary, result, onBack, kind }: { summary: string; result: S
           onClick={() => {
             navigator.clipboard?.writeText(summary).then(() => setCopied(true)).catch(() => {});
           }}
-          className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 font-bold text-white"
+          className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 font-bold text-ink"
         >
           <Copy className="h-5 w-5" /> {copied ? "Copié !" : "Copier le message"}
         </button>
       </div>
-      <button type="button" onClick={onBack} className="relative mt-6 text-sm font-semibold text-white/50 underline-offset-4 hover:underline">
+      <button type="button" onClick={onBack} className="relative mt-6 text-sm font-semibold text-ink/50 underline-offset-4 hover:underline">
         {saved ? "Envoyer une autre demande" : "Modifier ma demande"}
       </button>
     </motion.div>
@@ -539,17 +539,17 @@ export function QuickContact() {
 
   if (state === "sent") {
     return (
-      <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="grid place-items-center gap-3 rounded-[2rem] border border-gold/30 bg-night-2 p-10 text-center">
+      <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="grid place-items-center gap-3 rounded-[2rem] border border-gold/30 bg-white p-10 text-center">
         <span className="grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-gold-light to-gold-deep text-ink"><Check className="h-8 w-8" strokeWidth={3} /></span>
-        <p className="font-display text-2xl font-extrabold text-white">Message envoyé !</p>
-        <p className="text-white/65">Merci {nom.split(" ")[0]}, nous vous répondons très vite.</p>
-        <button type="button" className="text-sm font-semibold text-white/50 underline-offset-4 hover:underline" onClick={() => { setMsg(""); setState("idle"); }}>Écrire un autre message</button>
+        <p className="font-display text-2xl font-extrabold text-ink">Message envoyé !</p>
+        <p className="text-ink/65">Merci {nom.split(" ")[0]}, nous vous répondons très vite.</p>
+        <button type="button" className="text-sm font-semibold text-ink/50 underline-offset-4 hover:underline" onClick={() => { setMsg(""); setState("idle"); }}>Écrire un autre message</button>
       </motion.div>
     );
   }
 
   return (
-    <div className="relative grid gap-4 rounded-[2rem] border border-white/10 bg-night-2/80 p-6 md:p-8">
+    <div className="relative grid gap-4 rounded-[2rem] border border-ink/10 bg-white p-6 md:p-8">
       <div className="grid gap-4 sm:grid-cols-2">
         <label>
           <Label>Votre nom *</Label>
@@ -566,7 +566,7 @@ export function QuickContact() {
       </label>
       <Honeypot value={trap} onChange={setTrap} />
       <SlowHint active={state === "sending"} />
-      {error && <p className="rounded-xl bg-magenta/15 px-4 py-3 text-sm font-semibold text-white">{error}</p>}
+      {error && <p className="rounded-xl bg-ruby/10 px-4 py-3 text-sm font-semibold text-ink">{error}</p>}
       <div className="flex flex-wrap gap-3">
         <button
           type="button"
@@ -587,7 +587,7 @@ export function QuickContact() {
         </a>
         <a
           href={`mailto:${site.email}?subject=${encodeURIComponent("Message depuis le site")}&body=${encodeURIComponent(text)}`}
-          className={`inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3.5 font-bold text-white transition hover:border-gold hover:text-gold ${!msg.trim() ? "pointer-events-none opacity-40" : ""}`}
+          className={`inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3.5 font-bold text-ink transition hover:border-gold hover:text-bordeaux ${!msg.trim() ? "pointer-events-none opacity-40" : ""}`}
         >
           <Mail className="h-5 w-5" /> E-mail
         </a>

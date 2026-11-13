@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useEffect, useState } from "react";
 import { nav, img } from "@/lib/site";
@@ -19,6 +19,16 @@ export default function Header() {
   const { scrollY, scrollYProgress } = useScroll();
   const lenis = useLenis();
   const { site, wa } = useContent();
+  const router = useRouter();
+
+  // Pré-charge toutes les pages dès que le navigateur est libre :
+  // le premier clic (y compris depuis le menu mobile) s'ouvre instantanément, même en connexion lente.
+  useEffect(() => {
+    const go = () => [...nav.map((l) => l.href), "/devis"].forEach((href) => router.prefetch(href));
+    const w = window as Window & { requestIdleCallback?: (cb: () => void) => number };
+    if (w.requestIdleCallback) w.requestIdleCallback(go);
+    else setTimeout(go, 1500);
+  }, [router]);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;

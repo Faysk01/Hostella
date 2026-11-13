@@ -6,18 +6,21 @@
    Bordeaux + Or (logo) + Magenta (énergie, jeunesse) sur fond nuit
    ========================================================== */
 @theme {
-  --color-night: #120509;        /* fond principal, noir bordeaux */
-  --color-night-2: #1c0810;      /* cartes sur fond nuit */
-  --color-wine: #4a0a1c;         /* bordeaux profond */
-  --color-bordeaux: #8c1238;     /* bordeaux du logo */
-  --color-ruby: #b81e4a;         /* bordeaux lumineux */
-  --color-magenta: #e6337f;      /* accent dynamique (tapis rouge, néons) */
-  --color-gold: #e8b53a;         /* or du logo */
-  --color-gold-light: #f7d77a;   /* reflets */
-  --color-gold-deep: #b9811c;    /* or sombre */
-  --color-cream: #fff7ec;        /* sections claires */
-  --color-sand: #f3e6d3;         /* bordures claires */
-  --color-ink: #1d0b10;          /* texte sur fond clair */
+  /* Palette claire et douce (novembre 2026) */
+  --color-night: #2e1520;        /* bordeaux très profond (bannières photo, menu mobile) */
+  --color-night-2: #43212d;      /* variante */
+  --color-wine: #6a2238;         /* bordeaux profond */
+  --color-bordeaux: #92304c;     /* bordeaux du logo, adouci */
+  --color-ruby: #b4566e;         /* bordeaux rosé */
+  --color-magenta: #d98a9c;      /* rose poudré (remplace le magenta vif) */
+  --color-gold: #d4a64c;         /* or champagne */
+  --color-gold-light: #f0dcaa;   /* reflets dorés */
+  --color-gold-deep: #a97f2f;    /* or sombre */
+  --color-cream: #fffaf5;        /* ivoire */
+  --color-sand: #f4e9dc;         /* sable */
+  --color-blush: #fbeeee;        /* rose très pâle */
+  --color-champagne: #f8efe0;    /* champagne pâle */
+  --color-ink: #2a1a20;          /* texte */
 
   --font-display: var(--font-bricolage), system-ui, sans-serif;
   --font-serif: var(--font-instrument), Georgia, serif;
@@ -39,6 +42,7 @@
 html { background: var(--color-cream); }
 body {
   background: var(--color-cream);
+  transition: background-color 0.9s ease;
   color: var(--color-ink);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -100,17 +104,18 @@ body {
 .field {
   width: 100%;
   border-radius: 1rem;
-  border: 1px solid rgb(255 255 255 / .12);
-  background: rgb(255 255 255 / .04);
+  border: 1px solid rgb(42 26 32 / .14);
+  background: var(--color-cream);
   padding: .9rem 1.1rem;
-  color: white;
+  font-size: 16px; /* ≥ 16 px : pas de zoom automatique sur iPhone */
+  color: var(--color-ink);
   outline: none;
   transition: border-color .25s, background .25s, box-shadow .25s;
 }
-.field::placeholder { color: rgb(255 255 255 / .35); }
-.field:focus { border-color: var(--color-gold); background: rgb(255 255 255 / .07); box-shadow: 0 0 0 4px rgb(232 181 58 / .15); }
-select.field option { background: var(--color-night-2); }
-input[type="date"].field { color-scheme: dark; }
+.field::placeholder { color: rgb(42 26 32 / .35); }
+.field:focus { border-color: var(--color-gold); background: white; box-shadow: 0 0 0 4px rgb(212 166 76 / .18); }
+select.field option { background: white; }
+input[type="date"].field { color-scheme: light; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
