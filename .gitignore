@@ -14,6 +14,7 @@ SECRETS-A-COPIER.txt
 
 # Divers
 _to_delete/
-index.html
+# ancienne maquette à la racine uniquement (admin/index.html doit partir !)
+/index.html
 .DS_Store
 Thumbs.db
